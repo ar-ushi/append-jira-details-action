@@ -1,0 +1,19 @@
+name: Update PR with Jira Ticket details
+on:
+  pull_request:
+  types: [opened]
+jobs:
+  update_pr_description:
+  runs-on: ${{ matrix. os}}
+  strategy:
+    matrix:
+      os: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Extract Ticket ID from Branch Name
+        run: |
+          branch_name = "%{{ github.event.pull_request.head.ref }}"
+          jid = $( echo "$branch_name" | cut -d'/' -f1)
+          echo "::set_output name = jira_id::$jid"
+      

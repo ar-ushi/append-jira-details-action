@@ -1,0 +1,24 @@
+name : 'Jira Ticket Details for Pull Requests'
+description: 'Adds Jira Ticket details for a PR including description, labels and priority'
+branding:
+  color:
+  icon: 
+inputs:
+  token:
+    description: 'Github AUTH Token'
+    required: true
+  orgUrl:
+    description: 'Enterprise Jiral URL'
+    required: true
+  jiraId:
+    description: 'Jira Ticket ID'
+    required: true
+  jiraToken: 
+    description: 'Jira AUTH Token'
+    required: true
+  assigneeName:
+    description: 'Asignee Name'
+    required: true
+outputs:
+runs:
+

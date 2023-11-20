@@ -14,7 +14,7 @@ try {
     core.info('fetching details...');
     const response = await fetch(jiraAPIUrl, {
         headers: {
-            Authorization: `Basic ${authToken}`
+           Authorization: `Basic ${authToken}`
         }
     })
     if (response.ok){
