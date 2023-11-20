@@ -3,7 +3,7 @@ import * as gh from '@actions/github';
 import { Octokit } from '@octokit/rest';
 import retrieveDetails from './retrieve-details';
 
-export default async getDetailsForPr => {
+export async function getDetailsForPr() {
  try {
     const GHtoken = core.getInput('token', {required: true});
     const jid = core.getInput('jiraId', {required: true});

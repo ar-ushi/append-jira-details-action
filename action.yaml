@@ -21,4 +21,5 @@ inputs:
     required: true
 outputs:
 runs:
+  main: 'src/index.js'
 
