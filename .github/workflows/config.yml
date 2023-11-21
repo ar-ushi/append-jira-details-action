@@ -1,25 +1,24 @@
 name: Update PR with Jira Ticket details
-on:
-  pull_request:
-    types: [opened]
+on: pull_request
 jobs:
-  update_pr_description:
+  update_pr_details:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Extract Ticket ID from Branch Name
-        id: get-jid
+        id: get_jid
         run: |
-          branch_name = "%{{ github.event.pull_request.head.ref }}"
-          jid = $( echo "$branch_name" | cut -d'/' -f1)
-          echo "::set_output name = jira_id::$jid"
+          branch_name=${{ github.event.pull_request.head.ref }}
+          jiraId=$( echo "$branch_name" | cut -d'/' -f1)
+          echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
       - name : actions
         id : typescript
         uses: ./
         with: 
-          token: ${{secrets.GITHUB_TOKEN}}
-          jiraId: ${{ steps.get-jid.outputs.jira_id}}
-          orgUrl: ${{inputs.orgUrl}}
-          jiraToken: ${{secrets.JIRATOKEN}}
-          assigneeName: ${{secrets.USERNAME}}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          jiraId: ${{ steps.get_jid.outputs.jira_id }}
+          orgUrl: 'https://mock-jira-enterprise.atlassian.net'
+          jiraToken: ${{ secrets.JIRA_TOKEN }}
+          username: ${{ secrets.PR_USERNAME }}

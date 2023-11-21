@@ -1,4 +1,4 @@
-name : 'Jira Ticket Details for Pull Requests'
+\name : 'Jira Ticket Details for Pull Requests'
 description: 'Adds Jira Ticket details for a PR including description, labels and priority'
 branding:
   color:
@@ -16,10 +16,10 @@ inputs:
   jiraToken: 
     description: 'Jira AUTH Token'
     required: true
-  assigneeName:
-    description: 'Asignee Name'
+  username:
+    description: 'User Name with the required permissions to get Jira Ticket details'
     required: true
-outputs:
 runs:
-  main: 'src/index.js'
+  using: node20
+  main: './dist/index.js'
 
