@@ -1,5 +1,6 @@
 name: Update PR with Jira Ticket details
 on: pull_request
+  types: [opened]
 jobs:
   update_pr_details:
     runs-on: ubuntu-latest
