@@ -1,5 +1,5 @@
 name : 'Append Jira Details to PR'
-description: 'Append Jira Details to PR uses three main updates - update title of the Pull Request to Jira ID and Summary, append Jira description to the body of the PR and update the label on the basis of the Jira Issue Type'
+description: 'Adds Jira Ticket details for a PR including description, labels and priority'
 branding:
   color:
   icon: 
