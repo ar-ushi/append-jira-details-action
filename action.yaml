@@ -1,8 +1,8 @@
 name : 'Append Jira Details to PR'
 description: 'Adds Jira Ticket details for a PR including description, labels and priority'
 branding:
-  color:
-  icon: 
+  color: blue
+  icon: aperture
 inputs:
   token:
     description: 'The GitHub token used to authenticate API requests.'
