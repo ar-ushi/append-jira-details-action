@@ -22,8 +22,6 @@ on:
   pull_request:
     types:
       - opened
-      - synchronize
-
 jobs:
   append_jira_details:
     runs-on: ubuntu-latest
