@@ -1,7 +1,7 @@
 {
   "name": "append-jira-details-to-pr",
   "version": "1.0.0",
-  "description": "Append Jira Details to PR uses three main updates - update title of the Pull Request to Jira ID and Summary, append Jira description to the body of the PR and update the label on the basis of the Jira Issue Type",
+  "description": "The Append Jira Details to PR GitHub Action is designed to enhance your Pull Request (PR) workflow by seamlessly integrating Jira details into your PRs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "ncc build --minify src/index.ts "
@@ -16,5 +16,14 @@
   "devDependencies": {
     "@types/node": "^20.9.0",
     "typescript": "^5.3.2"
-  }
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ar-ushi/Append-Jira-Details-to-PR-Github-Action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ar-ushi/Append-Jira-Details-to-PR-Github-Action/issues"
+  },
+  "readme": "https://github.com/ar-ushi/Append-Jira-Details-to-PR-Github-Action#readme"
 }
