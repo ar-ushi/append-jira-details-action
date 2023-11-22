@@ -1,21 +1,21 @@
-name: Update PR with Jira Ticket details
+name: Append Jira Details to PR
 on: pull_request
-  types: [opened]
+  types: 
+    - opened
 jobs:
-  update_pr_details:
+  append_jira_details:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Extract Ticket ID from Branch Name
         id: get_jid
         run: |
           branch_name=${{ github.event.pull_request.head.ref }}
           jiraId=$( echo "$branch_name" | cut -d'/' -f1)
           echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
-      - name : actions
-        id : typescript
+      - name : Append Jira Details to PR
         uses: ./
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}

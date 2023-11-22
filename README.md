@@ -28,8 +28,13 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
-
+      uses: actions/checkout@v4
+    - name: Extract Ticket ID from Branch Name
+      id: get_jid
+      run: |
+        branch_name=${{ github.event.pull_request.head.ref }}
+        jiraId=$( echo "$branch_name" | cut -d'/' -f1)
+        echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
     - name: Append Jira Details to PR
       uses: your-username/your-repository-name@v1
       with:
@@ -56,6 +61,10 @@ The base URL of your Jira Enterprise instance.
 
 The GitHub token used to authenticate API requests.
 
+### `username` (required)
+
+The email address to authenticate Jira Rest API Request.
+
 ## Example
 
 Here is an example of how the action can be used:
@@ -72,8 +81,13 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
-
+      uses: actions/checkout@v4
+    - name: Extract Ticket ID from Branch Name
+      id: get_jid
+      run: |
+        branch_name=${{ github.event.pull_request.head.ref }}
+        jiraId=$( echo "$branch_name" | cut -d'/' -f1)
+        echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
     - name: Append Jira Details to PR
       uses: your-username/your-repository-name@v1
       with:

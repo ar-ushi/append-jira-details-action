@@ -5,19 +5,19 @@ branding:
   icon: 
 inputs:
   token:
-    description: 'Github AUTH Token'
+    description: 'The GitHub token used to authenticate API requests.'
     required: true
   orgUrl:
-    description: 'Enterprise Jiral URL'
+    description: 'The base URL of your Jira Enterprise instance.'
     required: true
   jiraId:
-    description: 'Jira Ticket ID'
+    description: 'The Jira Ticket ID associated to the Pull Request(PR)'
     required: true
   jiraToken: 
-    description: 'Jira AUTH Token'
+    description: 'The Jira API token used for authentication.'
     required: true
   username:
-    description: 'User Name with the required permissions to get Jira Ticket details'
+    description: 'The email address to authenticate Jira Rest API Request'
     required: true
 runs:
   using: node20
