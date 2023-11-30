@@ -36,7 +36,7 @@ jobs:
         jiraId=$( echo "$branch_name" | cut -d'/' -f1)
         echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
     - name: Append Jira Details to PR
-      uses: your-username/your-repository-name@v1
+      uses: ar-ushi/Append-Jira-Details-to-PR-Github-Action@v1
       with:
           token: ${{ secrets.GITHUB_TOKEN }}
           jiraId: ${{ steps.get_jid.outputs.jira_id }}
@@ -45,7 +45,6 @@ jobs:
           username: ${{ secrets.PR_USERNAME }}
 ```
 
-Make sure to replace `your-username/your-repository-name` with the actual path to your GitHub repository.
 
 ## Inputs
 
@@ -89,7 +88,7 @@ jobs:
         jiraId=$( echo "$branch_name" | cut -d'/' -f1)
         echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
     - name: Append Jira Details to PR
-      uses: your-username/your-repository-name@v1
+      uses: ar-ushi/Append-Jira-Details-to-PR-Github-Action@v1
       with:
           token: ${{ secrets.GITHUB_TOKEN }}
           jiraId: ${{ steps.get_jid.outputs.jira_id }}
