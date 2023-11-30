@@ -20,10 +20,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ar-ushi/Append-Jira-Details-to-PR-Github-Action.git"
+    "url": "https://github.com/ar-ushi/append-jira-details-action.git"
   },
   "bugs": {
-    "url": "https://github.com/ar-ushi/Append-Jira-Details-to-PR-Github-Action/issues"
+    "url": "https://github.com/ar-ushi/append-jira-details-action/issues"
   },
-  "readme": "https://github.com/ar-ushi/Append-Jira-Details-to-PR-Github-Action#readme"
+  "readme": "https://github.com/ar-ushi/append-jira-details-action#readme"
 }
