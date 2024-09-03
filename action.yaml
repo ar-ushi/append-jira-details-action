@@ -10,8 +10,8 @@ inputs:
   orgUrl:
     description: 'The base URL of your Jira Enterprise instance.'
     required: true
-  jiraId:
-    description: 'The Jira Ticket ID associated to the Pull Request(PR)'
+  jiraKey:
+    description: 'The Jira Key(s) associated to Project.'
     required: true
   jiraToken: 
     description: 'The Jira API token used for authentication.'

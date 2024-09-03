@@ -11,6 +11,16 @@ The "Append Jira Details to PR" GitHub Action is designed to enhance your Pull R
 
 This action simplifies the collaboration between your GitHub repository and Jira project, ensuring that your PRs are enriched with relevant Jira information.
 
+## Requirements
+
+To ensure that Jira issues are correctly linked, the Jira Identifier must be included in one of the following:
+
+1. **PR Title**: The Jira Identifier should be mentioned in the title of the pull request. For example: `Fix issue with login ABC-1`.
+
+2. **Branch Name**: The Jira Identifier should be part of the branch name associated with the pull request. Examples include:
+   - `ABC-1`
+   - `fix/ABC-1`
+
 ## Usage
 
 To use this GitHub Action, you can add the following workflow file (e.g., `.github/workflows/append_jira_details.yml`) to your repository:
@@ -64,37 +74,13 @@ The GitHub token used to authenticate API requests.
 
 The email address to authenticate Jira Rest API Request.
 
-## Example
+### `jiraKey` (required)
 
-Here is an example of how the action can be used:
+The key(s) associated with the Jira project. This can be a single key or an array of keys used to identify Jira issues. For example:
 
-```yaml
-on:
-  pull_request:
-    types:
-      - opened
+- For a single key: `MOE`
+- For multiple keys: `MOE, ABC`
 
-jobs:
-  append_jira_details:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-    - name: Extract Ticket ID from Branch Name
-      id: get_jid
-      run: |
-        branch_name=${{ github.event.pull_request.head.ref }}
-        jiraId=$( echo "$branch_name" | cut -d'/' -f1)
-        echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
-    - name: Append Jira Details to PR
-      uses: ar-ushi/append-jira-details-action@v1
-      with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          jiraId: ${{ steps.get_jid.outputs.jira_id }}
-          orgUrl: '{Your Enterprise URL}'
-          jiraToken: ${{ secrets.JIRA_TOKEN }}
-          username: ${{ secrets.PR_USERNAME }}
-```
+**Note**: Ensure the keys you provide match the project identifiers used in your Jira instance.
 
 This workflow will trigger the action when a new pull request is opened, ensuring that Jira details are appended to the PR for better traceability.
