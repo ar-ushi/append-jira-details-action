@@ -39,20 +39,14 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-    - name: Extract Ticket ID from Branch Name
-      id: get_jid
-      run: |
-        branch_name=${{ github.event.pull_request.head.ref }}
-        jiraId=$( echo "$branch_name" | cut -d'/' -f1)
-        echo "jira_id=${jiraId}" >> "$GITHUB_OUTPUT"
     - name: Append Jira Details to PR
       uses: ar-ushi/append-jira-details-action@v1
-      with:
+       with: 
           token: ${{ secrets.GITHUB_TOKEN }}
-          jiraId: ${{ steps.get_jid.outputs.jira_id }}
-          orgUrl: '{Your Enterprise URL}'
+          orgUrl: 'https://mock-jira-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
           username: ${{ secrets.PR_USERNAME }}
+          jiraKey: 'MOE,LOSIM'
 ```
 
 
