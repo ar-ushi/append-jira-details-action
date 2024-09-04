@@ -39,27 +39,38 @@ export default async function getDetailsForPr() {
     const bodyContent = context!.payload.pull_request!.body;
     const branch_name = context.payload!.pull_request!.head.ref;
     const pullRequestTitle = context.payload!.pull_request!.title;
-    let jiraIds: string[] = [];
+    let jiraIds = new Set();
     let jiraDetails: JiraDetail[] = [];
+    
+    const { data: commits } = await client.rest.pulls.listCommits({
+        owner,
+        repo,
+        pull_number
+    });
 
-    for (const key of jiraKey) {
-        const jiraIdMatches = pullRequestTitle.match(new RegExp(`${key}-\\d+`, 'g'));
-        if (jiraIdMatches) {
-            jiraIds.push(...jiraIdMatches);
+    const commitMessages = commits.map(commit => commit.commit.message);
+    const extractJiraIds = (text: string, key: string) => {
+        const matches = text.match(new RegExp(`${key}-\\d+`, 'g'));
+        if (matches) {
+            matches.forEach((match: string) => jiraIds.add(match));
         }
-    }
+    };
+        jiraKey.forEach(key => {
+            commitMessages.forEach(msg => extractJiraIds(msg, key));
+            extractJiraIds(pullRequestTitle, key);
+        });
+    
     // If no Jira IDs found in the title, check the branch name
-    if (jiraIds.length === 0) {
+    if (jiraIds.size === 0) {
         for (const key of jiraKey) {
             const jiraIdMatch = branch_name.match(new RegExp(`${key}-\\d+`));
             if (jiraIdMatch) {
-            jiraIds.push(jiraIdMatch[0]);
+            jiraIds.add(jiraIdMatch[0]);
             break; 
             }
         }
     }
-
-    if (jiraIds.length === 0) {
+    if (jiraIds.size === 0) {
         throw new Error(`Could not find any Jira IDs in the PR title or branch name matching any of the Jira keys: ${jiraKey.join(', ')}`);
     }
     for (const jiraId of jiraIds) {
@@ -72,7 +83,7 @@ export default async function getDetailsForPr() {
         if (fields.description && fields.description.trim() !== '') {
             desc = cleanAndFormatDescription(fields.description);
         } 
-        jiraDetails.push({id: jiraId, summary: fields.summary, description: desc, issueType: fields.issuetype.name})
+        jiraDetails.push({id: jiraId as string, summary: fields.summary, description: desc, issueType: fields.issuetype.name})
     }
 
     const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
