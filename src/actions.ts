@@ -68,8 +68,11 @@ export default async function getDetailsForPr() {
           authToken,
           jiraAPIUrl,
     });
-        const cleanedDescription = cleanAndFormatDescription(fields.description);
-        jiraDetails.push({id: jiraId, summary: fields.summary, description: cleanedDescription, issueType: fields.issuetype.name})
+        let desc = fields.summary;
+        if (fields.description && fields.description.trim() !== '') {
+            desc = cleanAndFormatDescription(fields.description);
+        } 
+        jiraDetails.push({id: jiraId, summary: fields.summary, description: desc, issueType: fields.issuetype.name})
     }
 
     const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
