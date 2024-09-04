@@ -1,5 +1,5 @@
 
-# Append Jira Details to PR GitHub Action
+# Add Jira Details to PR GitHub Action
 
 ## Overview
 
