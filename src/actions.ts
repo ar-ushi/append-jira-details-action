@@ -10,7 +10,10 @@ function cleanAndFormatDescription(description: string): string {
       .replace(/\{(?!noformat)[^}]+\}/g, '') 
       .replace(/\*/g, '') 
       .replace(/!\S.*?!/g, '')  
-      .replace(/^# /gm, '- ')  
+      .replace(/^#{1,6} /gm, match => {
+        const headingLevel = match.trim().length; 
+        return `${'  '.repeat(headingLevel - 1)}- `;
+      })
       .trim();
 }
 
