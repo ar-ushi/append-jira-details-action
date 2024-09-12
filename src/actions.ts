@@ -14,16 +14,19 @@ function cleanAndFormatDescription(description: string): string {
       .trim();
   }
 
-function addDescriptionToBody(jiradesc: string, body: string){
+  function addDescriptionToBody(jiradesc: string, body: string) {
     const dividingLine = '---';
-    const newJiraBlock = `$*Jira Description** \n\n${jiradesc}\n\n${dividingLine}`;
-    const regex = new RegExp(`*Jira Description** \n\n([\\s\\S]*?)\\n${dividingLine}`, 'm');
-    if (regex.test(body)){
+    const newJiraBlock = `**Jira Description** \n\n${jiradesc}\n\n${dividingLine}`;
+    const escapedJiraDescription = `\\*\\*Jira Description\\*\\* \\n\\n([\\s\\S]*?)\\n${dividingLine}`;
+    const regex = new RegExp(escapedJiraDescription, 'm');
+    
+    if (regex.test(body)) {
         return body.replace(regex, newJiraBlock);
     } else {
-        return `${newJiraBlock}\n\n${body}`
+        return `${newJiraBlock}\n\n${body}`;
     }
 }
+
 
 export default async function getDetailsForPr() {
  try {
@@ -84,7 +87,7 @@ export default async function getDetailsForPr() {
           authToken,
           jiraAPIUrl,
     });
-        const fixVersions = fields.fixVersions.map((fv: { name: string; }) => fv.name);
+        const fixVersions = fields.fixVersions?.map((fv: { name: string; }) => fv.name);
         let desc = fields.summary;
         if (fields.description && fields.description.trim() !== '') {
             desc = cleanAndFormatDescription(fields.description);
@@ -95,7 +98,7 @@ export default async function getDetailsForPr() {
     const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
     const jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.description}`).join('\n\n');
     const issueTypes = jiraDetails.map(jira => jira.issueType.toLowerCase());
-    const fixVersions = jiraDetails.map(jira => jira.fixVersions).flat();
+    const fixVersions = jiraDetails.map(jira => jira.fixVersions || []).flat();
     
     const labelsToAdd = [...issueTypes, ...fixVersions];
 
