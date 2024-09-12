@@ -10,13 +10,14 @@ function cleanAndFormatDescription(description: string): string {
       .replace(/\{(?!noformat)[^}]+\}/g, '') 
       .replace(/\*/g, '') 
       .replace(/!\S.*?!/g, '')  
+      .replace(/\[~accountid:[^\]]+\]/g, '')   
       .replace(/^#{1,6} /gm, match => {
         const headingLevel = match.trim().length; 
         return `${'  '.repeat(headingLevel - 1)}- `;
       })
       .trim();
 }
-
+//The above has basically n number of iterations but I have tried to focus on the most important ones
 
   function addDescriptionToBody(jiradesc: string, body: string) {
     const dividingLine = '---';
