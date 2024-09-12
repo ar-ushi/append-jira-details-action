@@ -6,13 +6,14 @@ import fetch from 'node-fetch';
 
 function cleanAndFormatDescription(description: string): string {
     return description
-      .replace(/{noformat}/g, '```')
-      .replace(/^\{(?!noformat)[^}]+\}.*$/gm, '')
-      .replace(/!\S.*?!/g, '')
-      .replace(/^# /gm, '- ')
-      .replace(/^## /gm, '1. ') 
+      .replace(/{noformat}/g, '```')  
+      .replace(/\{(?!noformat)[^}]+\}/g, '') 
+      .replace(/\*/g, '') 
+      .replace(/!\S.*?!/g, '')  
+      .replace(/^# /gm, '- ')  
       .trim();
-  }
+}
+
 
   function addDescriptionToBody(jiradesc: string, body: string) {
     const dividingLine = '---';
