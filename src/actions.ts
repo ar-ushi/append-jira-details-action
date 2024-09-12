@@ -6,8 +6,8 @@ import fetch from 'node-fetch';
 
 function cleanAndFormatDescription(description: string): string {
     return description
-      .replace(/{noformat}/g, '```')  
-      .replace(/\{(?!noformat)[^}]+\}/g, '') 
+        .replace(/{(noformat|code)}/g, '```')  
+        .replace(/^\{(?!noformat|code)[^}]+\}.*$/gm, '') 
       .replace(/\*/g, '') 
       .replace(/!\S.*?!/g, '')  
       .replace(/\[~accountid:[^\]]+\]/g, '')   
