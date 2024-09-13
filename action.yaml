@@ -21,10 +21,14 @@ inputs:
     required: true
   maxDescChars:
     description: 'Maximum number of characters allowed in the description.'
+    required: false
   maxTitleChars:
     description: 'Maximum number of characters allowed in the title.'
+    required: false
   jiraIdCutoff: 
    description: 'Maximum number of JIRA IDs to include in the description. If exceeded, only JIRA titles will be shown.'
+   required: false
+
 runs:
   using: node20
   main: './dist/index.js'
