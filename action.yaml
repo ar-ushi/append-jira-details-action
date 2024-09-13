@@ -19,6 +19,12 @@ inputs:
   username:
     description: 'The email address to authenticate Jira Rest API Request'
     required: true
+  maxDescChars:
+    description: 'Maximum number of characters allowed in the description.'
+  maxTitleChars:
+    description: 'Maximum number of characters allowed in the title.'
+  jiraIdCutoff: 
+   description: 'Maximum number of JIRA IDs to include in the description. If exceeded, only JIRA titles will be shown.'
 runs:
   using: node20
   main: './dist/index.js'

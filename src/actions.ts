@@ -48,6 +48,10 @@ export default async function getDetailsForPr() {
     const jiraToken = core.getInput('jiraToken', {required: true});  
     const username= core.getInput('username', {required: true});
     const authToken = Buffer.from(`${username}:${jiraToken}`).toString('base64');
+    const maxDescChars = parseInt(core.getInput('maxDescChars'))
+    const maxTitleChars = parseInt(core.getInput('maxTitleChars'))
+    const jiraIdCutoff = parseInt(core.getInput('jiraIdCutoff'))
+
     const client = new Octokit({
         auth: GHtoken,
         request: {
@@ -100,8 +104,27 @@ export default async function getDetailsForPr() {
         jiraDetails.push({id: jiraId as string, summary: fields.summary, description: desc, issueType: fields.issuetype.name, fixVersions: fixVersions})
     }
 
-    const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
-    const jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.description}`).join('\n\n');
+        const formattedTitle = jiraDetails.length === 1
+        ? `${jiraDetails[0].id} | ${jiraDetails[0].summary}`
+        : jiraDetails.map(jira => jira.id).join(' & ');
+    
+    const formattedTitleLength = formattedTitle.length;
+    
+    const title = !isNaN(maxTitleChars) && formattedTitleLength > maxTitleChars && jiraDetails.length === 1 
+        ? jiraDetails[0].id
+        : formattedTitle;
+    let jiraDescriptions;
+    if ( !isNaN(jiraIdCutoff) && jiraDetails.length > jiraIdCutoff){
+        jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.summary}`).join('\n\n');
+    } else {
+        jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.description}`).join('\n\n');
+    }
+    if (!isNaN(maxDescChars) && maxDescChars > 0) {
+        jiraDescriptions = jiraDescriptions.length > maxDescChars
+          ? jiraDescriptions.substring(0, maxDescChars) + '...' 
+          : jiraDescriptions;
+      }
+      
     const issueTypes = jiraDetails.map(jira => jira.issueType.toLowerCase());
     const fixVersions = jiraDetails.map(jira => jira.fixVersions || []).flat();
     
