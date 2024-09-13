@@ -1,4 +1,3 @@
-
 # Add Jira Details to PR GitHub Action
 
 ## Overview
@@ -7,7 +6,7 @@ The "Append Jira Details to PR" GitHub Action is designed to enhance your Pull R
 
 1. **Update PR Title:** It updates the title of the Pull Request to include the Jira ID and Summary.
 2. **Append Jira Description:** It appends the Jira description to the body of the Pull Request, providing additional context.
-3. **Update Label:** It updates the label on the PR based on the Jira Issue Type.
+3. **Update Label:** It updates the label on the PR based on the Jira Issue Type & Fix Versions.
 
 This action simplifies the collaboration between your GitHub repository and Jira project, ensuring that your PRs are enriched with relevant Jira information.
 
@@ -41,14 +40,13 @@ jobs:
       uses: actions/checkout@v4
     - name: Append Jira Details to PR
       uses: ar-ushi/append-jira-details-action@v1
-       with: 
+       with:
           token: ${{ secrets.GITHUB_TOKEN }}
           orgUrl: 'https://mock-jira-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
           username: ${{ secrets.PR_USERNAME }}
           jiraKey: 'MOE,LOSIM'
 ```
-
 
 ## Inputs
 

@@ -114,10 +114,16 @@ export default async function getDetailsForPr() {
         ? jiraDetails[0].id
         : formattedTitle;
     let jiraDescriptions;
-    if ( !isNaN(jiraIdCutoff) && jiraDetails.length > jiraIdCutoff){
-        jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.summary}`).join('\n\n');
+    const jiraBaseUrl = `${orgUrl}/browse/`;
+
+    if (!isNaN(jiraIdCutoff) && jiraDetails.length > jiraIdCutoff) {
+        jiraDescriptions = jiraDetails
+            .map(jira => `${jira.id}: ${jira.summary} - [Link](${jiraBaseUrl}${jira.id})`)
+            .join('\n\n');
     } else {
-        jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.description}`).join('\n\n');
+        jiraDescriptions = jiraDetails
+            .map(jira => `${jira.id}: ${jira.description} - [Link](${jiraBaseUrl}${jira.id})`)
+            .join('\n\n');
     }
     if (!isNaN(maxDescChars) && maxDescChars > 0) {
         jiraDescriptions = jiraDescriptions.length > maxDescChars
