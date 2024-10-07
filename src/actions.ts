@@ -19,19 +19,18 @@ function cleanAndFormatDescription(description: string): string {
 }
 //The above has basically n number of iterations but I have tried to focus on the most important ones
 
-  function addDescriptionToBody(jiradesc: string, body: string) {
+function addDescriptionToBody(jiradesc: string, body: string) {
     const dividingLine = '---';
     const newJiraBlock = `**Jira Description** \n\n${jiradesc}\n\n${dividingLine}`;
-    const escapedJiraDescription = `\\*\\*Jira Description\\*\\* \\n\\n([\\s\\S]*?)\\n${dividingLine}`;
+    const escapedJiraDescription = `\\*\\*Jira Description\\*\\*\\s*\\n\\s*([\\s\\S]*?)\\s*\\n${dividingLine}`;
     const regex = new RegExp(escapedJiraDescription, 'm');
-    
+
     if (regex.test(body)) {
         return body.replace(regex, newJiraBlock);
     } else {
         return `${newJiraBlock}\n\n${body}`;
     }
 }
-
 
 export default async function getDetailsForPr() {
  try {
@@ -118,13 +117,13 @@ export default async function getDetailsForPr() {
 
     if (!isNaN(jiraIdCutoff) && jiraDetails.length > jiraIdCutoff) {
         jiraDescriptions = jiraDetails
-            .map(jira => `${jira.id}: ${jira.summary} - [Link](${jiraBaseUrl}${jira.id})`)
+            .map(jira => `[Link](${jiraBaseUrl}${jira.id}) - ${jira.id}: ${jira.summary}`)
             .join('\n\n');
     } else {
         jiraDescriptions = jiraDetails
-            .map(jira => `${jira.id}: ${jira.description} - [Link](${jiraBaseUrl}${jira.id})`)
+            .map(jira => `[Link](${jiraBaseUrl}${jira.id}) - ${jira.id}: ${jira.description}`)
             .join('\n\n');
-    }
+    }    
     if (!isNaN(maxDescChars) && maxDescChars > 0) {
         jiraDescriptions = jiraDescriptions.length > maxDescChars
           ? jiraDescriptions.substring(0, maxDescChars) + '...' 
