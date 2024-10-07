@@ -117,11 +117,11 @@ export default async function getDetailsForPr() {
 
     if (!isNaN(jiraIdCutoff) && jiraDetails.length > jiraIdCutoff) {
         jiraDescriptions = jiraDetails
-            .map(jira => `[Link](${jiraBaseUrl}${jira.id}) - ${jira.id}: ${jira.summary}`)
+            .map(jira => `[${jira.id}](${jiraBaseUrl}${jira.id}) - ${jira.summary}`)
             .join('\n\n');
     } else {
         jiraDescriptions = jiraDetails
-            .map(jira => `[Link](${jiraBaseUrl}${jira.id}) - ${jira.id}: ${jira.description}`)
+            .map(jira => `[${jira.id}](${jiraBaseUrl}${jira.id}) - ${jira.description}`)
             .join('\n\n');
     }    
     if (!isNaN(maxDescChars) && maxDescChars > 0) {
