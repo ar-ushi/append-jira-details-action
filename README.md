@@ -9,9 +9,9 @@ If you plan to:
 - Use it as part of a commercial product or CI system
 
 ...then we ask that you:
-✅ Give credit (e.g. link to this repo in your README or workflow)
-✅ Consider contributing back or sponsoring
-✅ Contact us for licensing or support terms
+   ✅ Give credit (e.g. link to this repo in your README or workflow)
+   ✅ Consider contributing back or sponsoring
+   ✅ Contact us for licensing or support terms
 
 👉 https://github.com/ar-ushi/append-jira-details-action
 
