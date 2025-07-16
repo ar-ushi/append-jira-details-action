@@ -1,5 +1,20 @@
 # Add Jira Details to PR GitHub Action
 
+## 📢 Usage Expectations
+
+This GitHub Action is free to use for public workflows.
+
+If you plan to:
+- Mirror this Action into internal or private repositories
+- Use it as part of a commercial product or CI system
+
+...then we ask that you:
+✅ Give credit (e.g. link to this repo in your README or workflow)
+✅ Consider contributing back or sponsoring
+✅ Contact us for licensing or support terms
+
+👉 https://github.com/ar-ushi/append-jira-details-action
+
 ## Overview
 
 The "Append Jira Details to PR" GitHub Action is designed to enhance your Pull Request (PR) workflow by seamlessly integrating Jira details into your PRs. This action performs three main updates:
